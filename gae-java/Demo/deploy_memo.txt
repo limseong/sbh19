@@ -1,0 +1,6 @@
+<1> Use recent version Eclipse
+  - Eclipse Neo causes Java version issue. It only accepts ~1.7
+  - Market Place -> Search "Google Cloud" -> File/Sign in Google
+<2> Deploy
+  - Much easier in recent version Eclipse. Just create a GAE project and right click and deploy.
+  - Old versions = project ID at <application/> of appengine-web.xml
