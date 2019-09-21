@@ -36,8 +36,17 @@ public class MapUtils {
     LatLng currentPosition;
     LatLng targetPosition;
 
+    protected static final LatLng[] SBU_TARGET_POSITIONS = {
+            new LatLng(40.914297, -73.123638), //SAC
+            new LatLng(40.909657, -73.116138), //Stony Brook Hospital
+            new LatLng(40.921307, -73.127839)  //Stony Brook LIRR Station
+    };
+
     private boolean isPositionSet = false;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    String[] REQUIRED_PERMISSIONS  = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
     private static final int PERMISSIONS_REQUEST_CODE = 100;
 
     public MapUtils(Context ctx) {
@@ -51,10 +60,12 @@ public class MapUtils {
         builder.addLocationRequest(locationRequest);
         this.ctx = ctx;
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx);
+
+        targetPosition = SBU_TARGET_POSITIONS[2];
     }
 
     public void init() {
-        startLocationUpdates();
+        initLocationUpdates();
         if (checkPermission()) {
             start();
         }
@@ -64,9 +75,9 @@ public class MapUtils {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
-            List<Location> locationList = locationResult.getLocations();
-            if (locationList.size() > 0) {
-                location = locationList.get(locationList.size() - 1);
+            List<Location> locations = locationResult.getLocations();
+            if (locations.size() > 0) {
+                location = locations.get(locations.size() - 1);
                 currentPosition
                         = new LatLng(location.getLatitude(), location.getLongitude());
                 mCurrentLocatiion = location;
@@ -76,7 +87,7 @@ public class MapUtils {
         }
     };
 
-    private void startLocationUpdates() {
+    private void initLocationUpdates() {
         if (!checkPermission()) {
             ActivityCompat.requestPermissions( (Activity)ctx, REQUIRED_PERMISSIONS,
                     PERMISSIONS_REQUEST_CODE);
@@ -102,11 +113,11 @@ public class MapUtils {
 
         int hasFinePermission = ContextCompat.checkSelfPermission(ctx,
                 Manifest.permission.ACCESS_FINE_LOCATION);
-        int hasCoarsPermission = ContextCompat.checkSelfPermission(ctx,
+        int hasCoarsePermission = ContextCompat.checkSelfPermission(ctx,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
         if (hasFinePermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarsPermission == PackageManager.PERMISSION_GRANTED   ) {
+                hasCoarsePermission == PackageManager.PERMISSION_GRANTED   ) {
             return true;
         }
         return false;

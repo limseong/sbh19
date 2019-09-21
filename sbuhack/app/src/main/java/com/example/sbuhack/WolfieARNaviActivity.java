@@ -345,9 +345,6 @@ public class WolfieARNaviActivity extends AppCompatActivity {
     }
 
     private Node createWolfie() {
-        LatLng ny = new LatLng(40.730673, -74.002053);
-        mapUtils.setTargetPosition(ny);
-
         Node base = new Node();
         Vector3 vectorValue = new Vector3(0,0,0);
         base.setLookDirection(new Vector3(0.0f, 0.0f, 0.0f));
@@ -390,11 +387,15 @@ public class WolfieARNaviActivity extends AppCompatActivity {
                 wolfieNode = createWolfie();
                 wolfieNode.setParent(parent);
                 wolfieNode.setLocalRotation(rotation);
-                /*wolfieDir.set((wolfieDir.x + 0.1f), wolfieDir.y, wolfieDir.z);
-                Toast.makeText(getApplicationContext(),wolfieDir.x +"is the value and the value is " +
-                        wolfieNode.getLocalScale().x + "and " + wolfieNode.getLocalScale().y + "and " +
-                        wolfieNode.getLocalScale().z , Toast.LENGTH_LONG).show();
-                wolfieNode.setLookDirection(wolfieDir);*/
+
+
+
+                /*Vector3 cameraPosition = arSceneView.getScene().getCamera().getWorldPosition();
+                Vector3 cardPosition = wolfieNode.getWorldPosition();
+                Vector3 direction = Vector3.subtract(cameraPosition, cardPosition);
+                Quaternion lookRotation = Quaternion.lookRotation(direction, Vector3.up());
+                wolfieNode.setWorldRotation(lookRotation);*/
+
                 if(fText.getText() != null){
 //                    sacButton.setVisibility(View.INVISIBLE);
 //                    fuckText1.setVisibility(View.INVISIBLE);
