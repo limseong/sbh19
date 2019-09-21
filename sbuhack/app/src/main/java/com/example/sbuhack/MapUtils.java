@@ -1,6 +1,7 @@
 package com.example.sbuhack;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -17,6 +18,8 @@ import com.google.maps.android.SphericalUtil;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class MapUtils {
@@ -34,6 +37,8 @@ public class MapUtils {
     LatLng targetPosition;
 
     private boolean isPositionSet = false;
+    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    private static final int PERMISSIONS_REQUEST_CODE = 100;
 
     public MapUtils(Context ctx) {
         locationRequest = new LocationRequest()
@@ -48,11 +53,11 @@ public class MapUtils {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx);
     }
 
-    public void onMapReady() {
+    public void init() {
+        startLocationUpdates();
         if (checkPermission()) {
-            startLocationUpdates();
+            start();
         }
-        start();
     }
 
     LocationCallback locationCallback = new LocationCallback() {
@@ -73,6 +78,8 @@ public class MapUtils {
 
     private void startLocationUpdates() {
         if (!checkPermission()) {
+            ActivityCompat.requestPermissions( (Activity)ctx, REQUIRED_PERMISSIONS,
+                    PERMISSIONS_REQUEST_CODE);
             return;
         }
 
@@ -133,5 +140,4 @@ public class MapUtils {
             heading = 360 + heading;
         return heading;
     }
-
 }

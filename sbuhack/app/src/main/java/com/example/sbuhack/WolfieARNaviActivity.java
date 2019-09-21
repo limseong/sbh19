@@ -250,7 +250,7 @@ public class WolfieARNaviActivity extends AppCompatActivity {
                 sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
-        mapUtils.onMapReady();
+        mapUtils.init();
     }
 
     @Override
