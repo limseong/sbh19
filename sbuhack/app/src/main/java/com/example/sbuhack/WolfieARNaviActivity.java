@@ -2,6 +2,8 @@ package com.example.sbuhack;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -187,7 +189,35 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         oriListener = new OrientationListener();
 
         mapUtils = new MapUtils(this);
+
+        new Thread() {
+            public void run() {
+                HttpRequestREST test = new HttpRequestREST();
+                for (int i = 0; i < 3; i++) {
+                    Position p = test.getPosition(0);
+                    pos[i] = p;
+                }
+                Bundle bun = new Bundle();
+                //bun.putString("pos", );
+                Message msg = handler.obtainMessage();
+                msg.setData(bun);
+                count++;
+                handler.sendMessage(msg);
+            }
+        }.start();
     }
+
+    Position[] pos = new Position[3];
+    int count = 0;
+    boolean isPosReady = false;
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            Bundle bun = msg.getData();
+            if (count == 3) {
+                isPosReady = true;
+            }
+        }
+    };
 
     /*
      * Place an Anchor when plane updated
