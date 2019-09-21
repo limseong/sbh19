@@ -66,7 +66,7 @@ public class WolfieARNaviActivity extends AppCompatActivity {
             return;
         }
 
-        setContentView(R.layout.activity_solar);
+        setContentView(R.layout.activity_ar);
         arSceneView = findViewById(R.id.ar_scene_view);
 
         // Build all the planet models.
@@ -167,29 +167,29 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         DemoUtils.requestCameraPermission(this, RC_PERMISSIONS);
 
         // add onUpdate
-        arSceneView.getScene().addOnUpdateListener(this::onUpdate);
+//        arSceneView.getScene().addOnUpdateListener(this::onUpdate);
     }
 
     /*
      * Place an Anchor when plane updated
      */
-    private void onUpdate(FrameTime frameTime) {
-        Frame frame = arSceneView.getArFrame();
-        Collection<Plane> planes = frame.getUpdatedTrackables(Plane.class);
-        for (Plane plane : planes) {
-            if (plane.getTrackingState() == TrackingState.TRACKING && !hasPlacedAnchor) {
-                Anchor anchor = plane.createAnchor(plane.getCenterPose());
-                AnchorNode anchorNode = new AnchorNode(anchor);
-                anchorNode.setParent(arSceneView.getScene());
-
-                if (wolfieNode == null)
-                    wolfieNode = createWolfie();
-                anchorNode.addChild(wolfieNode);
-
-                hasPlacedAnchor = true;
-            }
-        }
-    }
+//    private void onUpdate(FrameTime frameTime) {
+//        Frame frame = arSceneView.getArFrame();
+//        Collection<Plane> planes = frame.getUpdatedTrackables(Plane.class);
+//        for (Plane plane : planes) {
+//            if (plane.getTrackingState() == TrackingState.TRACKING && !hasPlacedAnchor) {
+//                Anchor anchor = plane.createAnchor(plane.getCenterPose());
+//                AnchorNode anchorNode = new AnchorNode(anchor);
+//                anchorNode.setParent(arSceneView.getScene());
+//
+//                if (wolfieNode == null)
+//                    wolfieNode = createWolfie();
+//                anchorNode.addChild(wolfieNode);
+//
+//                hasPlacedAnchor = true;
+//            }
+//        }
+//    }
 
     @Override
     protected void onResume() {
@@ -312,37 +312,45 @@ public class WolfieARNaviActivity extends AppCompatActivity {
 
     private Node createWolfie() {
         Node base = new Node();
+        Vector3 vectorValue = new Vector3(0,0,0);
+        base.setLookDirection(new Vector3(0.0f, 0.0f, 0.0f));
 
         Node wolfie = new Node();
         wolfie.setParent(base);
-        wolfie.setLocalPosition(new Vector3(0.0f, 0.5f, 0.0f));
+        wolfie.setLocalPosition(new Vector3(0.0f, 0.0f, 0.0f));
+//        base.setLocalScale(new Vector3(3f, 3f, 3f));
 
         Node wolfieVisual = new Node();
         wolfieVisual.setParent(wolfie);
         wolfieVisual.setRenderable(wolfieRenderable);
-        wolfieVisual.setLocalScale(new Vector3(0.5f, 0.5f, 0.5f));
+        wolfieVisual.setLocalScale(new Vector3(20f, 20f, 20f));
 
         Node chatControls = new Node();
-        chatControls.setParent(wolfie);
+        chatControls.setParent(base);
         chatControls.setRenderable(chatRenderable);
-        chatControls.setLocalPosition(new Vector3(0.0f, 0.25f, 0.0f));
+        chatControls.setLocalPosition(new Vector3(0.5f, 0.25f, 0.0f));
 
         View solarControlsView = chatRenderable.getView();
 
         Button sacButton = solarControlsView.findViewById(R.id.sacButton);
-        TextView fuckText = solarControlsView.findViewById(R.id.Fuck);
-        TextView fuckText1 = solarControlsView.findViewById(R.id.orbitHeader);
-        SeekBar fuckText2 = solarControlsView.findViewById(R.id.orbitSpeedBar);
-        TextView fuckText3 = solarControlsView.findViewById(R.id.rotationHeader);
+        TextView fText = solarControlsView.findViewById(R.id.Fuck);
+        TextView fText1 = solarControlsView.findViewById(R.id.orbitHeader);
+        SeekBar fText2 = solarControlsView.findViewById(R.id.orbitSpeedBar);
+        TextView fText3 = solarControlsView.findViewById(R.id.rotationHeader);
         sacButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fuckText.getText() != null){
-                    sacButton.setVisibility(View.INVISIBLE);
-                    fuckText1.setVisibility(View.INVISIBLE);
-                    fuckText2.setVisibility(View.INVISIBLE);
-                    fuckText3.setVisibility(View.INVISIBLE);
-                    fuckText.setVisibility(View.VISIBLE);
+
+                vectorValue.set((vectorValue.x + 0.1f), vectorValue.y, vectorValue.z);
+                Toast.makeText(getApplicationContext(),vectorValue.x +"is the value and the value is " +
+                        base.getLocalScale().x + "and " + base.getLocalScale().y + "and " + base.getLocalScale().z , Toast.LENGTH_LONG).show();
+                base.setLookDirection(vectorValue);
+                if(fText.getText() != null){
+//                    sacButton.setVisibility(View.INVISIBLE);
+//                    fuckText1.setVisibility(View.INVISIBLE);
+//                    fuckText2.setVisibility(View.INVISIBLE);
+//                    fuckText3.setVisibility(View.INVISIBLE);
+//                    fuckText.setVisibility(View.VISIBLE);
                 }
             }
         });

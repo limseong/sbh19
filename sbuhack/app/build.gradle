@@ -46,7 +46,18 @@ sceneform.asset('sampledata/models/andy.obj',
         'sampledata/models/andy.sfa',
         'src/main/res/raw/andy')
 
+
 sceneform.asset('sampledata/seawolf.fbx',
         'default',
         'sampledata/seawolf.sfa',
         'src/main/assets/seawolf')
+
+sceneform.asset('sampledata/seawolf3000(front).fbx',
+        'default',
+        'sampledata/seawolf3000(front).sfa',
+        'src/main/assets/seawolf3000(front)')
+
+sceneform.asset('sampledata/seawolf3000(rear).fbx',
+        'default',
+        'sampledata/seawolf3000(rear).sfa',
+        'src/main/assets/seawolf3000(rear)')

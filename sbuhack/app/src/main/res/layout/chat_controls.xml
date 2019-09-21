@@ -28,7 +28,7 @@
         android:id="@+id/Fuck"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="FUCK YOU ^^"
+        android:text="^^"
         android:textAlignment="center"
         android:visibility="invisible"/>
     <TextView
