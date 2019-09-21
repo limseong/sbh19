@@ -4,24 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F08080"
     tools:context=".MainActivity">
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/arButton"
-        android:layout_width="143dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
-        android:text="Start AR"
+        android:layout_width="233dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
+        android:text="Get Started!"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/wolfiePic"
+        app:layout_constraintVertical_bias="0.451" />
+
+    <ImageView
+        android:layout_width="303dp"
+        android:layout_height="168dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/title"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/videoView"
+        app:layout_constraintVertical_bias="0.052"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/wolfiePic"
+        android:layout_width="185dp"
+        android:layout_height="266dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginBottom="100dp"
+        android:src="@drawable/wolfie"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.451"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/googleMapButton"
         android:layout_width="143dp"
         android:layout_height="69dp"
-        android:layout_marginStart="232dp"
+        android:layout_marginStart="132dp"
         android:layout_marginTop="60dp"
+        android:visibility="invisible"
         android:text="Start Map"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -130,20 +130,20 @@ public class WolfieARNaviActivity extends AppCompatActivity {
                             }
                         });
 
-        // Set a touch listener on the Scene to listen for taps.
-        arSceneView
-                .getScene()
-                .setOnTouchListener(
-                        (HitTestResult hitTestResult, MotionEvent event) -> {
-                            // If the solar system hasn't been placed yet, detect a tap and then check to see if
-                            // the tap occurred on an ARCore plane to place the solar system.
-                            if (!hasPlacedScene) {
-                                return gestureDetector.onTouchEvent(event);
-                            }
-
-                            // Otherwise return false so that the touch event can propagate to the scene.
-                            return false;
-                        });
+        ////////////////////////// TOUCH LISTENER //////////////////////////////
+//        arSceneView
+//                .getScene()
+//                .setOnTouchListener(
+//                        (HitTestResult hitTestResult, MotionEvent event) -> {
+//                            // If the solar system hasn't been placed yet, detect a tap and then check to see if
+//                            // the tap occurred on an ARCore plane to place the solar system.
+//                            if (!hasPlacedScene) {
+//                                return gestureDetector.onTouchEvent(event);
+//                            }
+//
+//                            // Otherwise return false so that the touch event can propagate to the scene.
+//                            return false;
+//                        });
 
         // Set an update listener on the Scene that will hide the loading message once a Plane is
         // detected.
@@ -175,7 +175,7 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         DemoUtils.requestCameraPermission(this, RC_PERMISSIONS);
 
         // add onUpdate
-//        arSceneView.getScene().addOnUpdateListener(this::onUpdate);
+        arSceneView.getScene().addOnUpdateListener(this::onUpdate);
 
         // initialize sensor manager and orientation listener
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -185,23 +185,23 @@ public class WolfieARNaviActivity extends AppCompatActivity {
     /*
      * Place an Anchor when plane updated
      */
-//    private void onUpdate(FrameTime frameTime) {
-//        Frame frame = arSceneView.getArFrame();
-//        Collection<Plane> planes = frame.getUpdatedTrackables(Plane.class);
-//        for (Plane plane : planes) {
-//            if (plane.getTrackingState() == TrackingState.TRACKING && !hasPlacedAnchor) {
-//                Anchor anchor = plane.createAnchor(plane.getCenterPose());
-//                AnchorNode anchorNode = new AnchorNode(anchor);
-//                anchorNode.setParent(arSceneView.getScene());
-//
-//                if (wolfieNode == null)
-//                    wolfieNode = createWolfie();
-//                anchorNode.addChild(wolfieNode);
-//
-//                hasPlacedAnchor = true;
-//            }
-//        }
-//    }
+    private void onUpdate(FrameTime frameTime) {
+        Frame frame = arSceneView.getArFrame();
+        Collection<Plane> planes = frame.getUpdatedTrackables(Plane.class);
+        for (Plane plane : planes) {
+            if (plane.getTrackingState() == TrackingState.TRACKING && !hasPlacedAnchor) {
+                Anchor anchor = plane.createAnchor(plane.getCenterPose());
+                AnchorNode anchorNode = new AnchorNode(anchor);
+                anchorNode.setParent(arSceneView.getScene());
+
+                if (wolfieNode == null)
+                    wolfieNode = createWolfie();
+                anchorNode.addChild(wolfieNode);
+
+                hasPlacedAnchor = true;
+            }
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -354,7 +354,6 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         Button sacButton = solarControlsView.findViewById(R.id.sacButton);
         TextView fText = solarControlsView.findViewById(R.id.Fuck);
         TextView fText1 = solarControlsView.findViewById(R.id.orbitHeader);
-        SeekBar fText2 = solarControlsView.findViewById(R.id.orbitSpeedBar);
         TextView fText3 = solarControlsView.findViewById(R.id.rotationHeader);
         sacButton.setOnClickListener(new Button.OnClickListener() {
             @Override
