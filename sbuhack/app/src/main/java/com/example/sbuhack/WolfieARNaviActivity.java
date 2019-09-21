@@ -37,6 +37,10 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.hardware.Sensor;
+
 public class WolfieARNaviActivity extends AppCompatActivity {
     private static final int RC_PERMISSIONS = 0x123;
     private boolean installRequested;
@@ -55,6 +59,10 @@ public class WolfieARNaviActivity extends AppCompatActivity {
     private boolean hasPlacedScene = false; // scene placed
     private boolean hasPlacedAnchor = false; // target anchor placed
 
+    // for current degree (orientation)
+    private SensorManager sensorManager;
+    private SensorEventListener oriListener;
+
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     // CompletableFuture requires api level 24
@@ -71,7 +79,7 @@ public class WolfieARNaviActivity extends AppCompatActivity {
 
         // Build all the planet models.
         CompletableFuture<ModelRenderable> wolfieBot =
-                ModelRenderable.builder().setSource(this, Uri.parse("seawolf.sfb")).build();
+                ModelRenderable.builder().setSource(this, Uri.parse("seawolf3000(front).sfb")).build();
 
         // Build a renderable from a 2D View.
         CompletableFuture<ViewRenderable> chatControlBox =
@@ -168,6 +176,10 @@ public class WolfieARNaviActivity extends AppCompatActivity {
 
         // add onUpdate
 //        arSceneView.getScene().addOnUpdateListener(this::onUpdate);
+
+        // initialize sensor manager and orientation listener
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        oriListener = new OrientationListener();
     }
 
     /*
@@ -225,6 +237,11 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         if (arSceneView.getSession() != null) {
             showLoadingMessage();
         }
+
+        // for orientation
+        sensorManager.registerListener(oriListener,
+                sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -233,6 +250,8 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         if (arSceneView != null) {
             arSceneView.pause();
         }
+
+        sensorManager.unregisterListener(oriListener);
     }
 
     @Override
