@@ -3,55 +3,55 @@
 3    package="com.google.ar.sceneform.ux.test" >
 4
 5    <uses-sdk
-5-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:5:5-74
+5-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:5:5-74
 6        android:minSdkVersion="24"
-6-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:5:15-41
+6-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:5:15-41
 7        android:targetSdkVersion="28" />
-7-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:5:42-71
+7-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:5:42-71
 8
 9    <instrumentation
-9-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:11:5-15:81
+9-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:11:5-15:81
 10        android:name="android.test.InstrumentationTestRunner"
-10-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:11:22-75
+10-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:11:22-75
 11        android:functionalTest="false"
-11-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:14:22-52
+11-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:14:22-52
 12        android:handleProfiling="false"
-12-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:13:22-53
+12-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:13:22-53
 13        android:label="Tests for com.google.ar.sceneform.ux.test"
-13-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:15:22-79
+13-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:15:22-79
 14        android:targetPackage="com.google.ar.sceneform.ux.test" />
-14-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:12:22-77
+14-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:12:22-77
 15
 16    <application
-16-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:7:5-9:19
+16-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:7:5-9:19
 17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-17-->[androidx.core:core:1.0.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\93d43a24e57c65f0653ffea8d9328dcb\core-1.0.0\AndroidManifest.xml:22:18-86
+17-->[androidx.core:core:1.0.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\93d43a24e57c65f0653ffea8d9328dcb\core-1.0.0\AndroidManifest.xml:22:18-86
 18        android:debuggable="true" >
-18-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:7:18-43
+18-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:7:18-43
 19        <uses-library android:name="android.test.runner" />
-19-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:8:9-60
-19-->C:\Users\jyjy5\AndroidStudioProjects\MyApplication\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4633213997932690341.xml:8:23-57
+19-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:8:9-60
+19-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2756026330463836729.xml:8:23-57
 20        <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
 21        <meta-data
-21-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:33:9-35:41
+21-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:33:9-35:41
 22            android:name="com.google.ar.core.min_apk_version"
-22-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:34:13-62
+22-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:34:13-62
 23            android:value="190805000" /> <!-- This activity is critical for installing ARCore when it is not already present. -->
-23-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:35:13-38
+23-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:35:13-38
 24        <activity
-24-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:37:9-43:80
+24-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:37:9-43:80
 25            android:name="com.google.ar.core.InstallActivity"
-25-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:38:13-62
+25-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:38:13-62
 26            android:configChanges="keyboardHidden|orientation|screenSize"
-26-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:39:13-74
+26-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:39:13-74
 27            android:excludeFromRecents="true"
-27-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:40:13-46
+27-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:40:13-46
 28            android:exported="false"
-28-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:41:13-37
+28-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:41:13-37
 29            android:launchMode="singleTop"
-29-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:42:13-43
+29-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:42:13-43
 30            android:theme="@android:style/Theme.Material.Light.Dialog.Alert" />
-30-->[com.google.ar:core:1.12.0] C:\Users\jyjy5\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:43:13-77
+30-->[com.google.ar:core:1.12.0] C:\Users\Coda\.gradle\caches\transforms-2\files-2.1\d586b35a69eab793233780c854443974\core-1.12.0\AndroidManifest.xml:43:13-77
 31    </application>
 32
 33</manifest>

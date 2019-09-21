@@ -26,12 +26,14 @@ import com.google.ar.core.exceptions.CameraNotAvailableException;
 import com.google.ar.core.exceptions.UnavailableException;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
+import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -47,12 +49,11 @@ public class WolfieARNaviActivity extends AppCompatActivity {
     private ModelRenderable wolfieRenderable;
     private ViewRenderable chatRenderable;
 
+    private Node wolfieNode;
 
-    // True once scene is loaded
-    private boolean hasFinishedLoading = false;
-
-    // True once the scene has been placed.
-    private boolean hasPlacedScene = false;
+    private boolean hasFinishedLoading = false; // scene loaded
+    private boolean hasPlacedScene = false; // scene placed
+    private boolean hasPlacedAnchor = false; // target anchor placed
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -164,6 +165,30 @@ public class WolfieARNaviActivity extends AppCompatActivity {
 
         // Lastly request CAMERA permission which is required by ARCore.
         DemoUtils.requestCameraPermission(this, RC_PERMISSIONS);
+
+        // add onUpdate
+        arSceneView.getScene().addOnUpdateListener(this::onUpdate);
+    }
+
+    /*
+     * Place an Anchor when plane updated
+     */
+    private void onUpdate(FrameTime frameTime) {
+        Frame frame = arSceneView.getArFrame();
+        Collection<Plane> planes = frame.getUpdatedTrackables(Plane.class);
+        for (Plane plane : planes) {
+            if (plane.getTrackingState() == TrackingState.TRACKING && !hasPlacedAnchor) {
+                Anchor anchor = plane.createAnchor(plane.getCenterPose());
+                AnchorNode anchorNode = new AnchorNode(anchor);
+                anchorNode.setParent(arSceneView.getScene());
+
+                if (wolfieNode == null)
+                    wolfieNode = createWolfie();
+                anchorNode.addChild(wolfieNode);
+
+                hasPlacedAnchor = true;
+            }
+        }
     }
 
     @Override
@@ -275,7 +300,7 @@ public class WolfieARNaviActivity extends AppCompatActivity {
                     Anchor anchor = hit.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arSceneView.getScene());
-                    Node wolfieNode = createWolfie();
+                    wolfieNode = createWolfie();
                     anchorNode.addChild(wolfieNode);
                     return true;
                 }
@@ -325,7 +350,6 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         // Toggle the solar controls on and off by tapping the sun.
         wolfieVisual.setOnTapListener(
                 (hitTestResult, motionEvent) -> chatControls.setEnabled(!chatControls.isEnabled()));
-
 
         return base;
     }

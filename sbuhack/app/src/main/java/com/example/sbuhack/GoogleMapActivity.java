@@ -10,6 +10,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
 
 public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -31,12 +32,22 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         mMap = googleMap;
 
         LatLng Stony = new LatLng(40.91429, -73.11619);
+        LatLng ny = new LatLng(40.730673, -74.002053);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(Stony);
         markerOptions.title("StonyBrook");
         markerOptions.snippet("SBU HACK STARTS");
         mMap.addMarker(markerOptions);
+
+        MarkerOptions mo = new MarkerOptions();
+        mo.position(ny);
+        mo.title("ny");
+        mo.snippet("ny");
+        mMap.addMarker(mo);
+
+        double heading = SphericalUtil.computeHeading(Stony, ny);
+        System.out.println("@@@@@@@@@@@@@@@@ "+heading);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Stony));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
