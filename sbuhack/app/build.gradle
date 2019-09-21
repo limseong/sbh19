@@ -47,17 +47,8 @@ sceneform.asset('sampledata/models/andy.obj',
         'src/main/res/raw/andy')
 
 
-sceneform.asset('sampledata/seawolf.fbx',
-        'default',
-        'sampledata/seawolf.sfa',
-        'src/main/assets/seawolf')
 
-sceneform.asset('sampledata/seawolf3000(front).fbx',
+sceneform.asset('sampledata/seawolf_pointing_right.fbx',
         'default',
-        'sampledata/seawolf3000(front).sfa',
-        'src/main/assets/seawolf3000(front)')
-
-sceneform.asset('sampledata/seawolf3000(rear).fbx',
-        'default',
-        'sampledata/seawolf3000(rear).sfa',
-        'src/main/assets/seawolf3000(rear)')
+        'sampledata/seawolf_pointing_right.sfa',
+        'src/main/assets/seawolf_pointing_right')

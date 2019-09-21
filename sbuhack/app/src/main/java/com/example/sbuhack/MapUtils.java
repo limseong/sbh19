@@ -61,7 +61,7 @@ public class MapUtils {
         this.ctx = ctx;
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(ctx);
 
-        targetPosition = SBU_TARGET_POSITIONS[2];
+        //targetPosition = SBU_TARGET_POSITIONS[2];
     }
 
     public void init() {
@@ -127,8 +127,8 @@ public class MapUtils {
         return isPositionSet;
     }
 
-    public void setTargetPosition(LatLng position) {
-        targetPosition = position;
+    public void setTargetPosition(int index) {
+        targetPosition = SBU_TARGET_POSITIONS[index];
     }
 
     public double getHeading() {

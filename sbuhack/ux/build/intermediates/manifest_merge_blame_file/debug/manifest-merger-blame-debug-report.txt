@@ -21,8 +21,8 @@
 21
 22    <uses-sdk
 23        android:minSdkVersion="24"
-23-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\src\main\AndroidManifest.xml
+23-->C:\Users\jyjy5\OneDrive\Desktop\SBU Hacks\sbh19\sbuhack\ux\src\main\AndroidManifest.xml
 24        android:targetSdkVersion="28" />
-24-->C:\Users\Coda\Desktop\dev\workspace\sbh19\sbuhack\ux\src\main\AndroidManifest.xml
+24-->C:\Users\jyjy5\OneDrive\Desktop\SBU Hacks\sbh19\sbuhack\ux\src\main\AndroidManifest.xml
 25
 26</manifest>

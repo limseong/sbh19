@@ -84,7 +84,7 @@ public class WolfieARNaviActivity extends AppCompatActivity {
 
         // Build all the planet models.
         CompletableFuture<ModelRenderable> wolfieBot =
-                ModelRenderable.builder().setSource(this, Uri.parse("seawolf3000(front).sfb")).build();
+                ModelRenderable.builder().setSource(this, Uri.parse("seawolf_front.sfb")).build();
 
         // Build a renderable from a 2D View.
         CompletableFuture<ViewRenderable> chatControlBox =
@@ -343,11 +343,49 @@ public class WolfieARNaviActivity extends AppCompatActivity {
 
         return false;
     }
+    float oriDegree = 0;
 
     private Node createWolfie() {
+        /////////////////////////////////////////////////////////////////////////
+        CompletableFuture<ModelRenderable> wolfieBot =
+                ModelRenderable.builder().setSource(getApplicationContext(), Uri.parse("seawolf_pointing_right.sfb")).build();
+
+        // Build a renderable from a 2D View.
+        CompletableFuture<ViewRenderable> chatControlBox =
+                ViewRenderable.builder().setView(getApplicationContext(), R.layout.chat_controls).build();
+
+        CompletableFuture.allOf(
+                wolfieBot,
+                chatControlBox)
+                .handle(
+                        (notUsed, throwable) -> {
+                            // When you build a Renderable, Sceneform loads its resources in the background while
+                            // returning a CompletableFuture. Call handle(), thenAccept(), or check isDone()
+                            // before calling get().
+
+                            if (throwable != null) {
+                                DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", throwable);
+                                return null;
+                            }
+
+                            try {
+                                wolfieRenderable = wolfieBot.get();
+                                chatRenderable = chatControlBox.get();
+
+                                // Everything finished loading successfully.
+                                hasFinishedLoading = true;
+
+                            } catch (InterruptedException | ExecutionException ex) {
+                                DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", ex);
+                            }
+
+                            return null;
+                        });
+        /////////////////////////////////////////////////////////////////
+
         Node base = new Node();
         Vector3 vectorValue = new Vector3(0,0,0);
-        base.setLookDirection(new Vector3(0.0f, 0.0f, 0.0f));
+        base.setLookDirection(new Vector3(0.0f, 0.0f, -1.5f));
 
         Node wolfie = new Node();
         wolfie.setParent(base);
@@ -366,19 +404,60 @@ public class WolfieARNaviActivity extends AppCompatActivity {
 
         View solarControlsView = chatRenderable.getView();
 
-        Button sacButton = solarControlsView.findViewById(R.id.sacButton);
-        TextView fText = solarControlsView.findViewById(R.id.Fuck);
-        TextView fText1 = solarControlsView.findViewById(R.id.orbitHeader);
-        TextView fText3 = solarControlsView.findViewById(R.id.rotationHeader);
+        Button sacButton = solarControlsView.findViewById(R.id.sacBt);
+        Button hospitalButton = solarControlsView.findViewById(R.id.hospitalBt);
+        Button stationButton = solarControlsView.findViewById(R.id.stationBt);
+        TextView questionView = solarControlsView.findViewById(R.id.questionVw);
+        if(oriDegree == 0)
+            oriDegree = ((OrientationListener)oriListener).getDegree();
+
         sacButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float oriDegree = ((OrientationListener)oriListener).getDegree();
+                mapUtils.setTargetPosition(0);
+
+/////////////////////////////////////////////////////////////////////////
+                CompletableFuture<ModelRenderable> wolfieBot =
+                        ModelRenderable.builder().setSource(getApplicationContext(), Uri.parse("seawolf_pointing_right.sfb")).build();
+
+                // Build a renderable from a 2D View.
+                CompletableFuture<ViewRenderable> chatControlBox =
+                        ViewRenderable.builder().setView(getApplicationContext(), R.layout.chat_controls).build();
+
+                CompletableFuture.allOf(
+                        wolfieBot,
+                        chatControlBox)
+                        .handle(
+                                (notUsed, throwable) -> {
+                                    // When you build a Renderable, Sceneform loads its resources in the background while
+                                    // returning a CompletableFuture. Call handle(), thenAccept(), or check isDone()
+                                    // before calling get().
+
+                                    if (throwable != null) {
+                                        DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", throwable);
+                                        return null;
+                                    }
+
+                                    try {
+                                        wolfieRenderable = wolfieBot.get();
+                                        chatRenderable = chatControlBox.get();
+
+                                        // Everything finished loading successfully.
+                                        hasFinishedLoading = true;
+
+                                    } catch (InterruptedException | ExecutionException ex) {
+                                        DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", ex);
+                                    }
+
+                                    return null;
+                                });
+                /////////////////////////////////////////////////////////////////
+
                 float targetDegree = (float) mapUtils.getHeading();
 
                 float rotate = targetDegree - oriDegree + 90;
 
-                Toast.makeText(getApplicationContext(),"ori : " + oriDegree + "\ntar : " +targetDegree +"\nrot : " + rotate,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"ori : " + oriDegree + "\ntar : " +targetDegree +"\nrot : " + rotate,Toast.LENGTH_LONG).show();
 
                 Quaternion rotation = Quaternion.axisAngle(new Vector3(0.0f, 1.0f, 0.0f), -rotate);
 
@@ -387,24 +466,134 @@ public class WolfieARNaviActivity extends AppCompatActivity {
                 wolfieNode = createWolfie();
                 wolfieNode.setParent(parent);
                 wolfieNode.setLocalRotation(rotation);
-
-
-
                 /*Vector3 cameraPosition = arSceneView.getScene().getCamera().getWorldPosition();
                 Vector3 cardPosition = wolfieNode.getWorldPosition();
                 Vector3 direction = Vector3.subtract(cameraPosition, cardPosition);
                 Quaternion lookRotation = Quaternion.lookRotation(direction, Vector3.up());
                 wolfieNode.setWorldRotation(lookRotation);*/
 
-                if(fText.getText() != null){
-//                    sacButton.setVisibility(View.INVISIBLE);
-//                    fuckText1.setVisibility(View.INVISIBLE);
-//                    fuckText2.setVisibility(View.INVISIBLE);
-//                    fuckText3.setVisibility(View.INVISIBLE);
-//                    fuckText.setVisibility(View.VISIBLE);
-                }
             }
         });
+
+        hospitalButton.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mapUtils.setTargetPosition(1);
+/////////////////////////////////////////////////////////////////////////
+                CompletableFuture<ModelRenderable> wolfieBot =
+                        ModelRenderable.builder().setSource(getApplicationContext(), Uri.parse("seawolf_pointing_right.sfb")).build();
+
+                // Build a renderable from a 2D View.
+                CompletableFuture<ViewRenderable> chatControlBox =
+                        ViewRenderable.builder().setView(getApplicationContext(), R.layout.chat_controls).build();
+
+                CompletableFuture.allOf(
+                        wolfieBot,
+                        chatControlBox)
+                        .handle(
+                                (notUsed, throwable) -> {
+                                    // When you build a Renderable, Sceneform loads its resources in the background while
+                                    // returning a CompletableFuture. Call handle(), thenAccept(), or check isDone()
+                                    // before calling get().
+
+                                    if (throwable != null) {
+                                        DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", throwable);
+                                        return null;
+                                    }
+
+                                    try {
+                                        wolfieRenderable = wolfieBot.get();
+                                        chatRenderable = chatControlBox.get();
+
+                                        // Everything finished loading successfully.
+                                        hasFinishedLoading = true;
+
+                                    } catch (InterruptedException | ExecutionException ex) {
+                                        DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", ex);
+                                    }
+
+                                    return null;
+                                });
+                /////////////////////////////////////////////////////////////////
+
+
+//                float oriDegree = ((OrientationListener)oriListener).getDegree();
+                float targetDegree = (float) mapUtils.getHeading();
+
+                float rotate = targetDegree - oriDegree + 90;
+
+//                Toast.makeText(getApplicationContext(),"ori : " + oriDegree + "\ntar : " +targetDegree +"\nrot : " + rotate,Toast.LENGTH_LONG).show();
+
+                Quaternion rotation = Quaternion.axisAngle(new Vector3(0.0f, 1.0f, 0.0f), -rotate);
+
+                Node parent = wolfieNode.getParent();
+                wolfieNode.setParent(null);
+                wolfieNode = createWolfie();
+                wolfieNode.setParent(parent);
+                wolfieNode.setLocalRotation(rotation);
+            }
+        });
+        stationButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapUtils.setTargetPosition(2);
+/////////////////////////////////////////////////////////////////////////
+                CompletableFuture<ModelRenderable> wolfieBot =
+                        ModelRenderable.builder().setSource(getApplicationContext(), Uri.parse("seawolf_pointing_right.sfb")).build();
+
+                // Build a renderable from a 2D View.
+                CompletableFuture<ViewRenderable> chatControlBox =
+                        ViewRenderable.builder().setView(getApplicationContext(), R.layout.chat_controls).build();
+
+                CompletableFuture.allOf(
+                        wolfieBot,
+                        chatControlBox)
+                        .handle(
+                                (notUsed, throwable) -> {
+                                    // When you build a Renderable, Sceneform loads its resources in the background while
+                                    // returning a CompletableFuture. Call handle(), thenAccept(), or check isDone()
+                                    // before calling get().
+
+                                    if (throwable != null) {
+                                        DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", throwable);
+                                        return null;
+                                    }
+
+                                    try {
+                                        wolfieRenderable = wolfieBot.get();
+                                        chatRenderable = chatControlBox.get();
+
+                                        // Everything finished loading successfully.
+                                        hasFinishedLoading = true;
+
+                                    } catch (InterruptedException | ExecutionException ex) {
+                                        DemoUtils.displayError(getApplicationContext(), "Unable to load renderable", ex);
+                                    }
+
+                                    return null;
+                                });
+                /////////////////////////////////////////////////////////////////
+
+
+//                float oriDegree = ((OrientationListener)oriListener).getDegree();
+                float targetDegree = (float) mapUtils.getHeading();
+
+                float rotate = targetDegree - oriDegree + 90;
+
+//                Toast.makeText(getApplicationContext(),"ori : " + oriDegree + "\ntar : " +targetDegree +"\nrot : " + rotate,Toast.LENGTH_LONG).show();
+
+                Quaternion rotation = Quaternion.axisAngle(new Vector3(0.0f, 1.0f, 0.0f), -rotate);
+
+                Node parent = wolfieNode.getParent();
+                wolfieNode.setParent(null);
+                wolfieNode = createWolfie();
+                wolfieNode.setParent(parent);
+                wolfieNode.setLocalRotation(rotation);
+            }
+        });
+
+
 
         // Toggle the solar controls on and off by tapping the sun.
         wolfieVisual.setOnTapListener(
