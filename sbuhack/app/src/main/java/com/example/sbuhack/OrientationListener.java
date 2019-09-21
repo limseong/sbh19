@@ -9,7 +9,7 @@ public class OrientationListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float degree = Math.round(event.values[0]);
+        degree = event.values[0];
     }
 
     @Override

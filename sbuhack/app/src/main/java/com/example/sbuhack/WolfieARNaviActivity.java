@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.Frame;
@@ -29,6 +30,7 @@ import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ViewRenderable;
@@ -62,6 +64,9 @@ public class WolfieARNaviActivity extends AppCompatActivity {
     // for current degree (orientation)
     private SensorManager sensorManager;
     private SensorEventListener oriListener;
+
+    private MapUtils mapUtils;
+    Vector3 wolfieDir = new Vector3(0,0,0);
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -180,6 +185,8 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         // initialize sensor manager and orientation listener
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         oriListener = new OrientationListener();
+
+        mapUtils = new MapUtils(this);
     }
 
     /*
@@ -242,6 +249,14 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         sensorManager.registerListener(oriListener,
                 sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
                 SensorManager.SENSOR_DELAY_NORMAL);
+
+        mapUtils.onMapReady();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapUtils.start();
     }
 
     @Override
@@ -330,6 +345,9 @@ public class WolfieARNaviActivity extends AppCompatActivity {
     }
 
     private Node createWolfie() {
+        LatLng ny = new LatLng(40.730673, -74.002053);
+        mapUtils.setTargetPosition(ny);
+
         Node base = new Node();
         Vector3 vectorValue = new Vector3(0,0,0);
         base.setLookDirection(new Vector3(0.0f, 0.0f, 0.0f));
@@ -358,11 +376,25 @@ public class WolfieARNaviActivity extends AppCompatActivity {
         sacButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float oriDegree = ((OrientationListener)oriListener).getDegree();
+                float targetDegree = (float) mapUtils.getHeading();
 
-                vectorValue.set((vectorValue.x + 0.1f), vectorValue.y, vectorValue.z);
-                Toast.makeText(getApplicationContext(),vectorValue.x +"is the value and the value is " +
-                        base.getLocalScale().x + "and " + base.getLocalScale().y + "and " + base.getLocalScale().z , Toast.LENGTH_LONG).show();
-                base.setLookDirection(vectorValue);
+                float rotate = targetDegree - oriDegree + 90;
+
+                Toast.makeText(getApplicationContext(),"ori : " + oriDegree + "\ntar : " +targetDegree +"\nrot : " + rotate,Toast.LENGTH_LONG).show();
+
+                Quaternion rotation = Quaternion.axisAngle(new Vector3(0.0f, 1.0f, 0.0f), -rotate);
+
+                Node parent = wolfieNode.getParent();
+                wolfieNode.setParent(null);
+                wolfieNode = createWolfie();
+                wolfieNode.setParent(parent);
+                wolfieNode.setLocalRotation(rotation);
+                /*wolfieDir.set((wolfieDir.x + 0.1f), wolfieDir.y, wolfieDir.z);
+                Toast.makeText(getApplicationContext(),wolfieDir.x +"is the value and the value is " +
+                        wolfieNode.getLocalScale().x + "and " + wolfieNode.getLocalScale().y + "and " +
+                        wolfieNode.getLocalScale().z , Toast.LENGTH_LONG).show();
+                wolfieNode.setLookDirection(wolfieDir);*/
                 if(fText.getText() != null){
 //                    sacButton.setVisibility(View.INVISIBLE);
 //                    fuckText1.setVisibility(View.INVISIBLE);
